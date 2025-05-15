@@ -9,24 +9,11 @@ Let:
   - Morphisms are pairs $(f, g) : (A_i, B_j) \to (A_k, B_l)$, where $f : A_i \to A_k$ and $g : B_j \to B_l$.
 
 The Abstract Factory corresponds to a functor:
-$$
-F : \mathcal{Fam} \to \mathcal{A} \times \mathcal{B}
-$$
+$F : \mathcal{Fam} \to \mathcal{A} \times \mathcal{B}$
 defined as follows:
-1. **Object Mapping**: For each family $X \in \mathrm{Ob}(\mathcal{Fam})$,
-   $$
-   F(X) = (A_X, B_X) \in \mathrm{Ob}(\mathcal{A} \times \mathcal{B}),
-   $$
+1. **Object Mapping**: For each family $X \in \mathrm{Ob}(\mathcal{Fam})$, $\ F(X) = (A_X, B_X) \in \mathrm{Ob}(\mathcal{A} \times \mathcal{B}),$
    where $A_X$ and $B_X$ are the concrete product types associated with family $X$.
 2. **Morphism Mapping**: Since $\mathcal{Fam}$ is discrete (no non-identity morphisms), $F$ trivially preserves identities.
-
-### Commutative Diagram
-For clarity, the action of $F$ on a family $X$ is:
-$$
-\begin{CD}
-X @>{F}>> (A_X, B_X)
-\end{CD}
-$$
 
 ### Explanation
 1. **Functoriality**:  
@@ -44,7 +31,6 @@ $$
 
 ### Example
 For families $\mathrm{Modern}$ and $\mathrm{Vintage}$, $F$ maps:
-$$
-F(\mathrm{Modern}) = (\mathrm{ModernChair}, \mathrm{ModernTable}), \\
-F(\mathrm{Vintage}) = (\mathrm{VintageChair}, \mathrm{VintageTable}).
-$$
+$\ F(\mathrm{Modern}) = (\mathrm{ModernChair}, \mathrm{ModernTable}), $
+$\ F(\mathrm{Vintage}) = (\mathrm{VintageChair}, \mathrm{VintageTable}).$
+
