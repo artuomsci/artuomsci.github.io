@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Markdown Viewer</title>
+  <!-- Include Markdown parser -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    .content { margin: 20px; }
+    a { color: blue; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>My Markdown Files</h1>
+    <div id="file-list"></div>
+    <div id="content"></div>
+  </div>
+
+  <script>
+    // List of .md files to display
+    const files = ['README.md', 'notes.md'];
+    
+    // Generate links
+    const fileList = document.getElementById('file-list');
+    files.forEach(file => {
+      const link = document.createElement('a');
+      link.href = `#${file}`;
+      link.innerHTML = file;
+      link.style.display = 'block';
+      link.onclick = () => loadMd(file);
+      fileList.appendChild(link);
+    });
+
+    // Load and render Markdown
+    async function loadMd(filename) {
+      const response = await fetch(filename);
+      const md = await response.text();
+      document.getElementById('content').innerHTML = marked.parse(md);
+    }
+
+    // Load first file by default
+    window.onload = () => loadMd(files[0]);
+  </script>
+</body>
+</html>
