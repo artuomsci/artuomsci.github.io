@@ -17,13 +17,6 @@
         .navbar {
             border-bottom: 3px solid #6c757d;
         }
-        .post-card {
-            transition: transform 0.2s;
-            background-color: white;
-        }
-        .post-card:hover {
-            transform: translateY(-5px);
-        }
         .math-display {
             overflow-x: auto;
             padding: 1rem 0;
@@ -31,6 +24,28 @@
         code {
             color: #d63384;
         }
+		.post-card {
+			transition: transform 0.2s;
+			background-color: transparent;
+			border: none;
+		}
+		.btn-post {
+			background-color: white;
+			color: #2c3e50;
+			border: 1px solid #dee2e6;
+			border-radius: 0.5rem;
+			padding: 1.25rem;
+			transition: all 0.2s;
+			text-align: left;
+			font-weight: 500;
+		}
+		.btn-post:hover {
+			background-color: #f8f9fa;
+			color: #2c3e50;
+			transform: translateY(-3px);
+			box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+			border-color: #6c757d;
+		}
     </style>
 </head>
 <body>
@@ -109,20 +124,17 @@
         }
 
         // Generate posts list
-        function generatePostsList() {
-            const listContainer = document.getElementById('posts-list');
-            listContainer.innerHTML = posts.map(post => `
-                <div class="card mb-3 post-card">
-                    <div class="card-body">
-                        <h5 class="card-title">${post.title}</h5>
-                        <button onclick="loadPost('${post.filename}')" 
-                                class="btn btn-outline-primary">
-                            Read Post
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
+		function generatePostsList() {
+			const listContainer = document.getElementById('posts-list');
+			listContainer.innerHTML = posts.map(post => `
+				<div class="card mb-3 post-card">
+					<button onclick="loadPost('${post.filename}')" 
+							class="btn btn-post w-100 p-3">
+						${post.title}
+					</button>
+				</div>
+			`).join('');
+		}
 
         // Load home page
         function loadHome() {
