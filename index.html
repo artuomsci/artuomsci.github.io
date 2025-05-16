@@ -37,7 +37,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Math Blog</a>
+            <a class="navbar-brand" href="#">Personal Blog</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="#" onclick="loadHome()">Home</a></li>
@@ -128,10 +128,19 @@
         function loadHome() {
             document.getElementById('content').innerHTML = `
                 <div class="jumbotron">
-                    <h1 class="display-4">Welcome to Math Blog</h1>
-                    <p class="lead">A collection of mathematical explorations and insights</p>
+                    <h1 class="display-4">Welcome to my personal blog</h1>
+                    <p class="lead">Welcome to "Category Theory in Code": A Developer’s Guide to Abstract Tools for Concrete Problems</p>
                     <hr class="my-4">
-                    <p>Browse through our growing collection of articles covering various topics in pure and applied mathematics.</p>
+                    <p>
+                    As software developers, we thrive on solving puzzles. We refactor tangled code into elegant systems,
+                    design architectures to scale under pressure, and wrestle bugs into submission. Yet, as projects grow,
+                    so do the challenges: hidden dependencies, brittle abstractions, and the creeping fear that our codebase might collapse under its own complexity.
+                    What if there were a set of principles—rooted in mathematics but refined for practicality—that could help us see patterns in the chaos,
+                    design more robust systems, and even predict failure before it happens?
+                    This blog is for developers, not mathematicians.
+                    Whether you’re a curious newcomer intrigued by terms like "monads" or "adjunctions," 
+                    or a seasoned engineer looking to deepen your grasp of functional programming, here you’ll find practical insights, not PhD lectures. 
+                    </p>
                 </div>
             `;
         }
