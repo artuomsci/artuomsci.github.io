@@ -1,6 +1,6 @@
 # Builder
 
-The builder pattern can be represented in category theory as a **functor** from finite chain category to a category of component types with colimit and cocones.
+The Builder pattern can be represented in category theory as a **functor** from finite chain category to a category of component types with colimit and cocones.
 
 ### Category-Theoretic Representation  
 **Let**:  
