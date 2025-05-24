@@ -29,7 +29,7 @@ The **Factory Method** pattern is represented as a **covariant functor** between
 
 ### Validity  
 1. **Functor Laws**:  
-   - **Identity**: $F(\mathrm{id}_C) = \mathrm{id}_{P}$.  
+   - **Identity**: $`F(\mathrm{id}_C) = \mathrm{id}_{P}`$.  
    - **Composition**: $F(f_j \circ f_i) = F(f_j) \circ F(f_i)$.  
 2. **Compatibility**:  
    Morphisms in $\mathcal{C}$ and $\mathcal{P}$ align, ensuring $C_i \to C$ implies $P_i \to P$.  
