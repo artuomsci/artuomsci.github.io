@@ -1,4 +1,4 @@
-### Brief Summary  
+### Factory method
 The **Factory Method** pattern is represented as a **covariant functor** between the category of Creator types and the category of Product types. This functor maps each Creator to its associated Product, preserving the inheritance hierarchy. The pattern's type-level polymorphism is captured by the functor's structure.
 
 ### Category-Theoretic Representation  
