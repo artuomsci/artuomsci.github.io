@@ -32,28 +32,53 @@
         code {
             color: #d63384;
         }
-		.post-card {
-			transition: transform 0.2s;
-			background-color: transparent;
-			border: none;
-		}
-		.btn-post {
-			background-color: white;
-			color: #2c3e50;
-			border: 1px solid #dee2e6;
-			border-radius: 0.5rem;
-			padding: 1.25rem;
-			transition: all 0.2s;
-			text-align: left;
-			font-weight: 500;
-		}
-		.btn-post:hover {
-			background-color: #f8f9fa;
-			color: #2c3e50;
-			transform: translateY(-3px);
-			box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-			border-color: #6c757d;
-		}
+	.post-card {
+		transition: transform 0.2s;
+		background-color: transparent;
+		border: none;
+	}
+	.btn-post {
+		background-color: white;
+		color: #2c3e50;
+		border: 1px solid #dee2e6;
+		border-radius: 0.5rem;
+		padding: 1.25rem;
+		transition: all 0.2s;
+		text-align: left;
+		font-weight: 500;
+	}
+	.btn-post:hover {
+		background-color: #f8f9fa;
+		color: #2c3e50;
+		transform: translateY(-3px);
+		box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+		border-color: #6c757d;
+	}
+        .category-header {
+            background-color: #e9ecef;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 2rem;
+        }
+        .category-header:after {
+            content: "▼";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+        .category-header.collapsed:after {
+            content: "►";
+        }
+        .nested-posts {
+            padding-left: 1.5rem;
+            border-left: 2px solid #dee2e6;
+        }
+        .post-indent {
+            margin-left: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -100,12 +125,105 @@
 
         // List of posts (update this when adding new posts)
         const posts = [
-            { filename: 'abstract_factory.md', title: 'Abstract Factory' },
-	    { filename: 'builder.md', title: 'Builder' },
-	    { filename: 'factory_method.md', title: 'Factory Method' },
-	    { filename: 'prototype.md', title: 'Prototype' },
-	    { filename: 'singleton.md', title: 'Singleton' }
+            {
+                name: "Design Patterns",
+                children: [
+                    {
+                        name: "Creational",
+                        children: [
+                            { filename: 'abstract_factory.md', title: 'Abstract Factory' },
+                            { filename: 'builder.md', title: 'Builder' },
+                            { filename: 'factory_method.md', title: 'Factory Method' },
+                            { filename: 'prototype.md', title: 'Prototype' },
+                            { filename: 'singleton.md', title: 'Singleton' }
+                        ]
+                    },
+                    {
+                        name: "Structural",
+                        children: [
+                            { filename: 'adapter.md', title: 'Adapter' },
+                            { filename: 'composite.md', title: 'Composite' }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "Category Theory",
+                children: [
+                    { filename: 'functors.md', title: 'Functors' },
+                    { filename: 'monads.md', title: 'Monads' }
+                ]
+            }
         ];
+
+        // Generate hierarchical posts list
+        function generatePostsList() {
+            const listContainer = document.getElementById('posts-list');
+            listContainer.innerHTML = renderTree(posts);
+        }
+
+        // Recursive function to render tree structure
+        function renderTree(nodes) {
+            return nodes.map(node => {
+                if (node.children) {
+                    return `
+                        <div class="card mb-2 post-card">
+                            <div class="category-header collapsed" 
+                                 data-bs-toggle="collapse" 
+                                 data-bs-target="#collapse-${node.name.replace(/\s+/g, '-')}">
+                                ${node.name}
+                            </div>
+                            <div class="collapse nested-posts" id="collapse-${node.name.replace(/\s+/g, '-')}">
+                                ${renderTree(node.children)}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="card mb-2 post-card post-indent">
+                            <button onclick="loadPost('${node.filename}')" 
+                                    class="btn btn-post w-100 p-2">
+                                ${node.title}
+                            </button>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        // Function to get all posts (flat list) for hash loading
+        function getAllPosts(nodes) {
+            let allPosts = [];
+            nodes.forEach(node => {
+                if (node.children) {
+                    allPosts = allPosts.concat(getAllPosts(node.children));
+                } else {
+                    allPosts.push(node);
+                }
+            });
+            return allPosts;
+        }
+
+        // Update window.onload to handle hierarchy
+        window.onload = () => {
+            generatePostsList();
+            const allPosts = getAllPosts(posts);
+            
+            // Add event listeners to category headers
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                });
+            });
+            
+            if (window.location.hash) {
+                const filename = window.location.hash.substring(1);
+                const post = allPosts.find(p => p.filename === filename);
+                if (post) loadPost(post.filename);
+            } else {
+                loadHome();
+            }
+        };
 
         // Load post content
         async function loadPost(filename) {
