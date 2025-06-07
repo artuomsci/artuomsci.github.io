@@ -3,7 +3,7 @@
 The Builder pattern can be represented in category theory as a **functor** from finite chain category to a category of component types with colimit and cocones.
 
 ### Category-Theoretic Representation  
-**Let**:  
+Let:
 - $\mathcal{J}$ denote a **finite chain category** representing construction steps ($S_1 \to S_2 \to S_3$).  
 - $\mathcal{T}$ denote a **category of component types**, with objects as primitive types (e.g., $F$, $W$, $R$) and morphisms as type transformations.  
 - A **builder** be a functor $B: \mathcal{J} \to \mathcal{T}$, mapping each step $S_i$ to a component type $B(S_i)$.  
