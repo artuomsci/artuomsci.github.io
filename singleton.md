@@ -3,7 +3,7 @@
 The Singleton pattern is represented as a **terminal object** in a category of types, enforcing unique global accessibility and type-level uniqueness via its universal property. This abstracts the pattern's core constraint—exactly one "point of access".
 
 ### Category-Theoretic Representation  
-**Let**:  
+Let:
 - $\mathcal{C}$ be a **category** where:  
   - Objects are types in the program.  
   - Morphisms $f : A \to B$ represent functional relationships (e.g., accessors or transformations).  
