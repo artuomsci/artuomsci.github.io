@@ -1,9 +1,8 @@
-# Decorator Pattern - Category Theoretic Interpretation
+# Decorator
 
-## Brief Summary
 The Decorator pattern is formalized as a monoidal category of interface-preserving endofunctors, where decorator composition forms a monoid through successive wrapping operations.
 
-## Category-Theoretic Representation  
+### Category-Theoretic Representation
 Let:
 - $\mathcal{I}$ be the **base interface category** with:
   - Single object: $I$ (Component interface)
@@ -14,7 +13,7 @@ Let:
   - Tensor product: Functor composition $\circ$
   - Unit object: Identity functor $\mathbb{1}$
 
-## Explanation  
+### Explanation  
 1. **Endofunctor Nature**: Each decorator $D$ preserves:
    - Object mapping: $D(I) = I$ 
    - Morphism preservation: $D(f) = f$  
@@ -23,20 +22,19 @@ Let:
    - Associativity: $(D_k \circ D_j) \circ D_i = D_k \circ (D_j \circ D_i)$
    - Unit laws: $\mathbb{1} \circ D = D \circ \mathbb{1} = D$
 
-## Why This Works
+### Why This Works
 - **Interface Preservation**: All $D \in \mathbf{Dec}$ maintain $I$'s structure
 - **Arbitrary Nesting**: Monoidal closure permits $D_n \circ \cdots \circ D_1$
 - **Type Safety**: Natural transformations ensure compatibility
 
-## Validity
+### Validity
 1. **Pattern Compliance**:
    - Matches Decorator's recursive wrapping
    - Maintains single component interface
 
-## Example
+### Example
 
 **Decorator Composition Chain**
-
 Consider three interface-preserving endofunctors:
 - $B$: BoldDecorator
 - $I$: ItalicDecorator
@@ -51,24 +49,14 @@ maintains interface $I$ while combining three decorators.
 For decorators $D, D' \in \mathbf{Dec}$, a natural transformation $\alpha: D \Rightarrow D'$ consists of:
 - Component maps: $\alpha_I: D(I) \to D'(I)$ in $\mathcal{I}$
 - Naturality condition: For any $f: I \to I$ in $\mathcal{I}$:
-```math
-\alpha_I \circ D(f) = D'(f) \circ \alpha_I
-```
+$ \alpha_I \circ D(f) = D'(f) \circ \alpha_I $
 
 **Concrete Example**: Let:
 - $D$ = TextCapitalizer (decorator making text uppercase)
 - $D'$ = TextLowercaser (decorator making text lowercase)
 - $\alpha_I$ = identity map on $I$ (preserves interface)
 
-The naturality square:
-```math
-\begin{CD}
-I @>D>> I \\
-@V\text{id}_I VV @VV\text{id}_I V \\
-I @>>D'> I
-\end{CD}
-```
-commutes since both paths:
+The naturality square commutes since both paths:
 1. $D(f) \circ \text{id}_I = D(f)$
 2. $\text{id}_I \circ D'(f) = D'(f)$
 
